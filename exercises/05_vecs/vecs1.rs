@@ -1,9 +1,9 @@
 fn array_and_vec() -> ([i32; 4], Vec<i32>) {
-    let a = [10, 20, 30, 40]; // Array
 
     // TODO: Create a vector called `v` which contains the exact same elements as in the array `a`.
     // Use the vector macro.
-    // let v = ???;
+    let a = [10, 20, 30, 40]; // a plain array
+    let v = vec![10, 20, 30, 40];// TODO: declare your vector here with the macro for vectors
 
     (a, v)
 }

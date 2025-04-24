@@ -1,12 +1,20 @@
 // TODO: Fix the compiler error in the function without adding any new line.
-fn fill_vec(vec: Vec<i32>) -> Vec<i32> {
+fn fill_vec(mut vec: Vec<i32>) -> Vec<i32> {
+
     vec.push(88);
 
     vec
 }
 
 fn main() {
-    // You can optionally experiment here.
+    let vec0 = Vec::new();
+
+    let mut vec1 = fill_vec(vec0);
+
+    println!("{} has length {} content `{:?}`", "vec1", vec1.len(), vec1);
+
+
+    // println!("{} has length {} content `{:?}`", "vec1", vec1.len(), vec1);
 }
 
 #[cfg(test)]

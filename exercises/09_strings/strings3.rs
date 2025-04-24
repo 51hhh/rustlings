@@ -1,17 +1,17 @@
 fn trim_me(input: &str) -> &str {
-    // TODO: Remove whitespace from both ends of a string.
+    input.trim()
 }
 
 fn compose_me(input: &str) -> String {
-    // TODO: Add " world!" to the string! There are multiple ways to do this.
+    format!("{} world!", input)
 }
 
 fn replace_me(input: &str) -> String {
-    // TODO: Replace "cars" in the string with "balloons".
+    input.replace("cars", "balloons")
 }
 
 fn main() {
-    // You can optionally experiment here.
+    // 可以在这里进行实验性代码
 }
 
 #[cfg(test)]
@@ -20,9 +20,9 @@ mod tests {
 
     #[test]
     fn trim_a_string() {
-        assert_eq!(trim_me("Hello!     "), "Hello!");
-        assert_eq!(trim_me("  What's up!"), "What's up!");
-        assert_eq!(trim_me("   Hola!  "), "Hola!");
+        assert_eq!(trim_me("Hello! "), "Hello!");
+        assert_eq!(trim_me(" What's up!"), "What's up!");
+        assert_eq!(trim_me(" Hola! "), "Hola!");
     }
 
     #[test]

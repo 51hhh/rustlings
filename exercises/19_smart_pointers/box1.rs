@@ -1,35 +1,32 @@
-// At compile time, Rust needs to know how much space a type takes up. This
-// becomes problematic for recursive types, where a value can have as part of
-// itself another value of the same type. To get around the issue, we can use a
-// `Box` - a smart pointer used to store data on the heap, which also allows us
-// to wrap a recursive type.
+// 在编译时，Rust 需要知道一个类型占用多少空间。这对于递归类型来说会成为问题，
+// 因为一个递归类型的值可以将自身类型的另一个值作为其一部分。为了解决这个问题，
+// 我们可以使用 `Box`——一种用于在堆上存储数据的智能指针，它还允许我们包装递归类型。
 //
-// The recursive type we're implementing in this exercise is the "cons list", a
-// data structure frequently found in functional programming languages. Each
-// item in a cons list contains two elements: The value of the current item and
-// the next item. The last item is a value called `Nil`.
+// 在这个练习中我们要实现的递归类型是 “cons 列表”，这是一种在函数式编程语言中经常出现的数据结构。
+// cons 列表中的每个元素包含两个部分：当前元素的值和下一个元素。最后一个元素是一个称为 `Nil` 的值。
 
-// TODO: Use a `Box` in the enum definition to make the code compile.
+
+// 待办事项：在枚举定义中使用 `Box` 使代码能够编译。
 #[derive(PartialEq, Debug)]
 enum List {
-    Cons(i32, List),
+    Cons(i32, Box<List>),
     Nil,
 }
 
-// TODO: Create an empty cons list.
+// 待办事项：创建一个空的 cons 列表。
 fn create_empty_list() -> List {
-    todo!()
+    List::Nil
 }
 
-// TODO: Create a non-empty cons list.
+// 待办事项：创建一个非空的 cons 列表。
 fn create_non_empty_list() -> List {
-    todo!()
+    List::Cons(42, Box::new(List::Nil))
 }
 
 fn main() {
-    println!("This is an empty cons list: {:?}", create_empty_list());
+    println!("这是一个空的 cons 列表: {:?}", create_empty_list());
     println!(
-        "This is a non-empty cons list: {:?}",
+        "这是一个非空的 cons 列表: {:?}",
         create_non_empty_list(),
     );
 }
@@ -48,3 +45,5 @@ mod tests {
         assert_ne!(create_empty_list(), create_non_empty_list());
     }
 }
+
+

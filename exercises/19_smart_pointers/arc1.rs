@@ -1,35 +1,32 @@
-// In this exercise, we are given a `Vec` of `u32` called `numbers` with values
-// ranging from 0 to 99. We would like to use this set of numbers within 8
-// different threads simultaneously. Each thread is going to get the sum of
-// every eighth value with an offset.
+// 在这个练习中，我们有一个名为 `numbers` 的 `u32` 类型的 `Vec`，其中的值范围是 0 到 99。
+// 我们希望同时在 8 个不同的线程中使用这组数字。每个线程将获取每隔 8 个值且带有偏移量的数字的总和。
 //
-// The first thread (offset 0), will sum 0, 8, 16, …
-// The second thread (offset 1), will sum 1, 9, 17, …
-// The third thread (offset 2), will sum 2, 10, 18, …
+// 第一个线程（偏移量为 0），将计算 0, 8, 16, … 的总和
+// 第二个线程（偏移量为 1），将计算 1, 9, 17, … 的总和
+// 第三个线程（偏移量为 2），将计算 2, 10, 18, … 的总和
 // …
-// The eighth thread (offset 7), will sum 7, 15, 23, …
+// 第八个线程（偏移量为 7），将计算 7, 15, 23, … 的总和
 //
-// Each thread should own a reference-counting pointer to the vector of
-// numbers. But `Rc` isn't thread-safe. Therefore, we need to use `Arc`.
+// 每个线程应该拥有一个指向数字向量的引用计数指针。但是 `Rc` 不是线程安全的。因此，我们需要使用 `Arc`。
 //
-// Don't get distracted by how threads are spawned and joined. We will practice
-// that later in the exercises about threads.
+// 不要被线程的创建和连接方式所干扰。我们将在后面关于线程的练习中练习这些内容。
 
-// Don't change the lines below.
+
+// 不要更改下面的行。
 #![forbid(unused_imports)]
 use std::{sync::Arc, thread};
 
 fn main() {
     let numbers: Vec<_> = (0..100u32).collect();
 
-    // TODO: Define `shared_numbers` by using `Arc`.
-    // let shared_numbers = ???;
+    // 待办事项：使用 `Arc` 定义 `shared_numbers`。
+    let shared_numbers = Arc::new(numbers);
 
     let mut join_handles = Vec::new();
 
     for offset in 0..8 {
-        // TODO: Define `child_numbers` using `shared_numbers`.
-        // let child_numbers = ???;
+        // 待办事项：使用 `shared_numbers` 定义 `child_numbers`。
+        let child_numbers = Arc::clone(&shared_numbers);
 
         let handle = thread::spawn(move || {
             let sum: u32 = child_numbers.iter().filter(|&&n| n % 8 == offset).sum();
@@ -43,3 +40,5 @@ fn main() {
         handle.join().unwrap();
     }
 }
+
+

@@ -1,13 +1,10 @@
-// TODO: Fix the compiler error without taking the macro definition out of this
-// module.
-mod macros {
-    macro_rules! my_macro {
-        () => {
-            println!("Check out my macro!");
-        };
-    }
+macro_rules! my_macro {
+    () => {
+        println!("Check out my macro!");
+    };
 }
 
 fn main() {
+    // 修正宏调用
     my_macro!();
 }

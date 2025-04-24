@@ -14,10 +14,12 @@ mod tests {
 
     #[test]
     fn you_can_assert_eq() {
-        // TODO: Test the function `power_of_2` with some values.
-        assert_eq!();
-        assert_eq!();
-        assert_eq!();
-        assert_eq!();
+        // Test basic cases
+        assert_eq!(power_of_2(0), 1);  // 2^0 = 1
+        assert_eq!(power_of_2(1), 2);  // 2^1 = 2
+        assert_eq!(power_of_2(4), 16); // 2^4 = 16
+        
+        // Test edge case (maximum u8 value would panic due to overflow)
+        assert_eq!(power_of_2(63), 1 << 63); // 2^63
     }
 }

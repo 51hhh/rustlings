@@ -1,35 +1,51 @@
 #[derive(Debug, PartialEq, Eq)]
 enum DivisionError {
-    // Example: 42 / 0
+    // 示例: 42 / 0
     DivideByZero,
-    // Only case for `i64`: `i64::MIN / -1` because the result is `i64::MAX + 1`
+    // `i64` 类型的唯一情况: `i64::MIN / -1` 因为结果是 `i64::MAX + 1`
     IntegerOverflow,
-    // Example: 5 / 2 = 2.5
+    // 示例: 5 / 2 = 2.5
     NotDivisible,
 }
 
-// TODO: Calculate `a` divided by `b` if `a` is evenly divisible by `b`.
-// Otherwise, return a suitable error.
+// 待办事项: 如果 `a` 能被 `b` 整除，计算 `a` 除以 `b` 的结果。
+// 否则，返回合适的错误。
 fn divide(a: i64, b: i64) -> Result<i64, DivisionError> {
-    todo!();
+    if b == 0 {
+        return Err(DivisionError::DivideByZero);
+    }
+    if a == i64::MIN && b == -1 {
+        return Err(DivisionError::IntegerOverflow);
+    }
+    if a % b != 0 {
+        return Err(DivisionError::NotDivisible);
+    }
+    Ok(a / b)
 }
 
-// TODO: Add the correct return type and complete the function body.
-// Desired output: `Ok([1, 11, 1426, 3])`
-fn result_with_list() {
+// 待办事项: 添加正确的返回类型并完成函数体。
+// 期望输出: `Ok([1, 11, 1426, 3])`
+fn result_with_list() -> Result<[i64; 4], DivisionError> {
     let numbers = [27, 297, 38502, 81];
-    let division_results = numbers.into_iter().map(|n| divide(n, 27));
+    let division_results: Result<[i64; 4], DivisionError> = numbers.into_iter()
+       .map(|n| divide(n, 27))
+       .collect::<Result<Vec<i64>, DivisionError>>()
+       .map(|vec| vec.try_into().unwrap());
+    division_results
 }
 
-// TODO: Add the correct return type and complete the function body.
-// Desired output: `[Ok(1), Ok(11), Ok(1426), Ok(3)]`
-fn list_of_results() {
+// 待办事项: 添加正确的返回类型并完成函数体。
+// 期望输出: `[Ok(1), Ok(11), Ok(1426), Ok(3)]`
+fn list_of_results() -> [Result<i64, DivisionError>; 4] {
     let numbers = [27, 297, 38502, 81];
-    let division_results = numbers.into_iter().map(|n| divide(n, 27));
+    let division_results_vec: Vec<Result<i64, DivisionError>> = numbers.into_iter()
+       .map(|n| divide(n, 27))
+       .collect();
+    division_results_vec.try_into().unwrap()
 }
 
 fn main() {
-    // You can optionally experiment here.
+    // 你可以在这里进行可选的实验。
 }
 
 #[cfg(test)]
